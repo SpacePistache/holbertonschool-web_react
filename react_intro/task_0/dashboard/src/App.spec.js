@@ -2,21 +2,27 @@ import { render, screen } from '@testing-library/react';
 import App from './App';
 
 describe('App component', () => {
-  test('renders the h1 with the dashboard title', () => {
+  test('renders the login paragraph', () => {
     render(<App />);
-    // getByRole with name = one query for both the element type and its text
-    expect(screen.getByRole('heading', { level: 1, name: /school dashboard/i })).toBeInTheDocument();
+    const el = screen.getByText(/login to access the full dashboard/i);
+    expect(el).toBeInTheDocument();
   });
 
-  test('renders the body and footer paragraphs', () => {
+  test('renders the copyright footer', () => {
     render(<App />);
-    expect(screen.getByText(/login to access the full dashboard/i)).toBeInTheDocument();
-    expect(screen.getByText(/copyright/i)).toBeInTheDocument();
-    expect(screen.getByText(/holberton school/i)).toBeInTheDocument();
+    const el = screen.getByText(/copyright \d{4} - holberton school/i);
+    expect(el).toBeInTheDocument();
+  });
+
+  test('renders the h1 title', () => {
+    render(<App />);
+    const el = screen.getByRole('heading', { level: 1, name: /school dashboard/i });
+    expect(el).toBeInTheDocument();
   });
 
   test('renders the logo image', () => {
     render(<App />);
-    expect(screen.getByAltText(/holberton logo/i)).toBeInTheDocument();
+    const el = screen.getByAltText(/holberton logo/i);
+    expect(el).toBeInTheDocument();
   });
 });
