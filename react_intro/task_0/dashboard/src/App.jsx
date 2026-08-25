@@ -12,7 +12,7 @@ function App() {
         <p>Login to access the full dashboard</p>
       </div>
       <footer className="App-footer">
-        <p>Copyright {new Date().getFullYear()} - holberton School</p>
+        <p>Copyright {new Date().getFullYear()} - Holberton School</p>
       </footer>
     </>
   );
