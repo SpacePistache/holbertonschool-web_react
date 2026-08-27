@@ -15,6 +15,6 @@ describe('CourseList component', () => {
 
   test('renders 1 row when courses is empty', () => {
     render(<CourseList courses={[]} />);
-    expect(screen.getAllByRole('row').length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByRole('row').length).toBeGreaterThanOrEqual(3);
   });
 });
