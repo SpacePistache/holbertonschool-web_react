@@ -7,11 +7,3 @@
 .notification-items ul {
   margin: 5px 0;
 }
-
-.notification-items li[data-priority="default"] {
-  color: blue;
-}
-
-.notification-items li[data-priority="urgent"] {
-  color: red;
-}
