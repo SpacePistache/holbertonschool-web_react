@@ -1,0 +1,9 @@
+.notification-items {
+  border: 3px dotted #e1003c;
+  padding: 10px;
+  position: relative;
+}
+
+.notification-items ul {
+  margin: 5px 0;
+}
