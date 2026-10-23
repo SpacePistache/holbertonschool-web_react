@@ -60,4 +60,12 @@ describe('App component', () => {
     expect(screen.getByText(/holberton school news goes here/i)).toBeInTheDocument();
   });
 
+  test('renders Login under the "Log in to continue" heading when not logged in', () => {
+    render(<App isLoggedIn={false} />);
+    const heading = screen.getByRole('heading', { name: /log in to continue/i });
+    expect(heading).toBeInTheDocument();
+    const section = heading.closest('.bodySection');
+    expect(within(section).getByRole('button', { name: /ok/i })).toBeInTheDocument();
+  });
+
 });
