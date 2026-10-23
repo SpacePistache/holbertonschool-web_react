@@ -8,7 +8,7 @@ class NotificationItem extends Component {
 
   render() {
 
-    const { html, value } = this.props;
+    const { type, html, value, id, markAsRead } = this.props;
     const style = { color: type === 'urgent' ? 'red' : 'blue' };
 
     if (html) {
