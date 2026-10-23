@@ -14,7 +14,7 @@ class App extends Component {
 
   static defaultProps = {
     isLoggedIn: false,
-    logOut: () => {},
+    logOut: () => { },
   };
 
   handleKeyDown = (event) => {
@@ -31,8 +31,8 @@ class App extends Component {
   componentWillUnmount() {
     document.removeEventListener('keydown', this.handleKeyDown);
   }
-  
-  render () {
+
+  render() {
 
     const { isLoggedIn } = this.props;
 
@@ -54,18 +54,18 @@ class App extends Component {
           <Notifications displayDrawer={true} notifications={notificationsList} />
         </div>
         <Header />
-          {isLoggedIn ? (
-            <BodySectionWithMarginBottom title="Course list">
-              <CourseList courses={coursesList} />
-            </BodySectionWithMarginBottom>
-          ) : (
-            <BodySectionWithMarginBottom title="Log in to continue">
-              <Login />
-            </BodySectionWithMarginBottom>
-          )}
-          <BodySection title="News from the School">
-            <p>Holberton School News goes here</p>
-          </BodySection>
+        {isLoggedIn ? (
+          <BodySectionWithMarginBottom title="Course list">
+            <CourseList courses={coursesList} />
+          </BodySectionWithMarginBottom>
+        ) : (
+          <BodySectionWithMarginBottom title="Log in to continue">
+            <Login />
+          </BodySectionWithMarginBottom>
+        )}
+        <BodySection title="News from the School">
+          <p>Holberton School News goes here</p>
+        </BodySection>
         <Footer />
       </Fragment>
     );
