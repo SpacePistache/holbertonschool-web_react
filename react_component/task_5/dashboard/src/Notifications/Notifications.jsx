@@ -11,9 +11,14 @@ class Notifications extends Component {
     notifications: [],
   };
 
+  shouldComponentUpdate(nextProps) {
+      return nextProps.notifications.length !== this.props.notifications.length;
+    }
+
   render() {
 
     const { displayDrawer, notifications } = this.props;
+
 
     return (
       <>
