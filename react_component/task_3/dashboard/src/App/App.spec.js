@@ -53,4 +53,11 @@ describe('App component', () => {
     render(<App isLoggedIn={true} />);
     expect(screen.getByText(/available courses/i)).toBeInTheDocument();
   });
+  
+  test('displays the News from the School section by default', () => {
+    render(<App />);
+    expect(screen.getByRole('heading', { name: /news from the school/i })).toBeInTheDocument();
+    expect(screen.getByText(/holberton school news goes here/i)).toBeInTheDocument();
+  });
+
 });
