@@ -4,6 +4,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  base: '/holbertonschool-web_react/',
   esbuild: {
     include: /\.[jt]sx?$/,
     loader: 'jsx',
