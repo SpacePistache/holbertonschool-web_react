@@ -24,7 +24,7 @@ class Notifications extends Component {
         <div className="menuItem text-right">Your notifications</div>
 
         {displayDrawer && (
-          <div className="Notifications relative ml-auto w-full lg:w-1/4 p-1.5 border-2 border-dashed border-[var(--main-color)]">
+          <div className="Notifications relative ml-auto w-full lg:w-1/4 p-1.5 border-2 border-dashed border-(--main-color)">
             {notifications.length === 0 ? (
               <p>No new notification for now</p>
             ) : (
