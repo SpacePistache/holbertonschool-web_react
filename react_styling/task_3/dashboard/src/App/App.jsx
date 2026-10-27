@@ -1,5 +1,4 @@
 import { Fragment, Component } from 'react';
-import './App.css';
 import Notifications from '../Notifications/Notifications';
 import Header from '../Header/Header';
 import Login from '../Login/Login';
