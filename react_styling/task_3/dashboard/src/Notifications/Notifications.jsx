@@ -21,7 +21,7 @@ class Notifications extends Component {
 
     return (
       <>
-        <div className="menuItem text-right">Your notifications</div>
+        <div className="menuItem text-right px-2.5 py-1">Your notifications</div>
 
         {displayDrawer && (
           <div className="Notifications relative ml-auto w-full lg:w-1/4 p-1.5 border-2 border-dashed border-(--main-color)">
