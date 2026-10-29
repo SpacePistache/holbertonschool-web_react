@@ -4,7 +4,6 @@ import NotificationItem from './NotificationItem';
 
 class Notifications extends Component {
   static defaultProps = {
-    displayDrawer: false,
     notifications: [],
   };
 
@@ -17,7 +16,7 @@ class Notifications extends Component {
   };
 
   render() {
-    const { displayDrawer, notifications } = this.props;
+    const { displayDrawer = true, notifications } = this.props;
 
     return (
       <>
