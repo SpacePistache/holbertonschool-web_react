@@ -6,7 +6,7 @@ class BodySection extends Component {
 
     return (
       <div className="bodySection">
-        <h2 className="font-bold mb-1 max-[912px]:text-xl">{title}</h2>
+        <h2 className="font-bold mb-1 max-[912px]:mb-0 max-[912px]:text-xl">{title}</h2>
         {children}
       </div>
     );

@@ -12,7 +12,7 @@ import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBot
 class App extends Component {
 
   static defaultProps = {
-    isLoggedIn: true,
+    isLoggedIn: false,
     logOut: () => { },
   };
 
@@ -49,8 +49,8 @@ class App extends Component {
     ];
 
     return (
-      <div className="App relative min-h-screen flex flex-col px-3 max-[520px]:px-2">
-        <div className="root-notifications">
+      <div className="App relative min-h-screen flex flex-col px-3">
+        <div className="root-notifications max-[912px]:absolute max-[912px]:top-0 max-[912px]:inset-x-3">
           <Notifications notifications={notificationsList} />
         </div>
         <Header />

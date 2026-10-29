@@ -16,13 +16,12 @@ class Notifications extends Component {
   };
 
   render() {
-
-    const { displayDrawer = false, notifications } = this.props;
+    const { displayDrawer = true, notifications } = this.props;
     const shouldBounce = notifications.length > 0 && !displayDrawer;
 
     return (
       <>
-        <div className={`menuItem notification-title text-right px-2.5 py-1 ${shouldBounce ? 'animate-bounce' : ''}`}>Your notifications</div>
+        <div className={`menuItem notification-title text-right px-2.5 py-1 max-[912px]:px-3 ${shouldBounce ? 'animate-bounce' : ''}`}>Your notifications</div>
 
         {displayDrawer && (
           <div className="Notifications absolute right-2.5 top-[30px] w-1/4 bg-white p-1.5 
