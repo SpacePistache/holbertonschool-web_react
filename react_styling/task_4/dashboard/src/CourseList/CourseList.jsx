@@ -3,7 +3,7 @@ import WithLogging from '../HOC/WithLogging';
 
 function CourseList({ courses = [] }) {
   return (
-    <div className="w-4/5 mx-auto my-8 overflow-x-auto">
+    <div className="w-4/5 mx-auto my-8 max-[912px]:my-32 overflow-x-auto">
       <table id="CourseList" className="w-full">
         <thead>
           <CourseListRow textFirstCell="Available courses" isHeader={true} />

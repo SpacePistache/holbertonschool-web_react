@@ -16,11 +16,11 @@ class Notifications extends Component {
   };
 
   render() {
-    const { displayDrawer = false, notifications } = this.props;
+    const { displayDrawer = true, notifications } = this.props;
 
     return (
       <>
-        <div className="menuItem text-right px-2.5 py-1">Your notifications</div>
+        <div className="menuItem text-right px-2.5 py-1 max-[912px]:px-3">Your notifications</div>
 
         {displayDrawer && (
           <div className="Notifications absolute right-2.5 top-[30px] w-1/4 bg-white p-1.5 
