@@ -35,7 +35,6 @@ class App extends Component {
 
     const { isLoggedIn } = this.props;
 
-    const displayDrawer = true;
 
     const notificationsList = [
       { id: 1, type: 'default', value: 'New course available' },
@@ -52,7 +51,7 @@ class App extends Component {
     return (
       <div className="App relative min-h-screen flex flex-col px-3 max-[520px]:px-2">
         <div className="root-notifications">
-          <Notifications displayDrawer={displayDrawer} notifications={notificationsList} />
+          <Notifications notifications={notificationsList} />
         </div>
         <Header />
         {isLoggedIn ? (

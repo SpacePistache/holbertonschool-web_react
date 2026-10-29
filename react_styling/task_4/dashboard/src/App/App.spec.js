@@ -57,7 +57,7 @@ describe('App component', () => {
   test('displays the News from the School section by default', () => {
     render(<App />);
     expect(screen.getByRole('heading', { name: /news from the school/i })).toBeInTheDocument();
-    expect(screen.getByText(/holberton school news goes here/i)).toBeInTheDocument();
+    expect(screen.getByText(/ipsum lorem ipsum dolor/i)).toBeInTheDocument();
   });
 
   test('renders Login under the "Log in to continue" heading when not logged in', () => {
