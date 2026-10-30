@@ -74,12 +74,12 @@ describe('App component', () => {
     expect(within(section).getByRole('button', { name: /ok/i })).toBeInTheDocument();
   });
 
-  test('clicking "Your notifications" opens the drawer', () => {
+  test('clicking the close button hides the drawer', () => {
     render(<App />);
-    expect(screen.queryByText(/here is the list of notifications/i)).not.toBeInTheDocument();
-
-    fireEvent.click(screen.getByText(/your notifications/i));
     expect(screen.getByText(/here is the list of notifications/i)).toBeInTheDocument();
+
+    fireEvent.click(screen.getByRole('button', { name: /close/i }));
+    expect(screen.queryByText(/here is the list of notifications/i)).not.toBeInTheDocument();
   });
 
   test('logging in shows the CourseList and the logout section', () => {

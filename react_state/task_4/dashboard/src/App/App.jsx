@@ -32,7 +32,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      displayDrawer: false,
+      displayDrawer: true,
       user: { ...defaultUser },
       logOut: this.logOut,
       notifications: notificationsList,
