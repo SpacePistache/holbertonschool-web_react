@@ -14,10 +14,9 @@ class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoggedIn: false,
-      email: '',
-      password: '',
-      enableSubmit: false,
+      email: props.email,
+      password: props.password,
+      enableSubmit: EMAIL_REGEX.test(props.email) && props.password.length >= 8,
     };
   }
 
