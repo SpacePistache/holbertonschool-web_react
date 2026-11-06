@@ -48,7 +48,7 @@ function App() {
 
     const fetchNotifications = async () => {
       try {
-        const response = await axios.get('/notifications.json');
+        const response = await axios.get('http://localhost:5173/notifications.json');
         if (ignore) return;
         const list = Array.isArray(response.data) ? response.data : response.data.notifications;
         const data = list.map((notification) =>
@@ -75,7 +75,7 @@ function App() {
 
     const fetchCourses = async () => {
       try {
-        const response = await axios.get('/courses.json');
+        const response = await axios.get('http://localhost:5173/courses.json');
         if (ignore) return;
         const list = Array.isArray(response.data) ? response.data : response.data.courses;
         setCourses(list);
