@@ -1,4 +1,5 @@
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo, useEffect } from 'react';
+import axios from 'axios';
 import Notifications from '../Notifications/Notifications';
 import Header from '../Header/Header';
 import Login from '../Login/Login';
@@ -15,22 +16,11 @@ const defaultUser = {
   isLoggedIn: false,
 };
 
-const notificationsList = [
-  { id: 1, type: 'default', value: 'New course available' },
-  { id: 2, type: 'urgent', value: 'New resume available' },
-  { id: 3, type: 'urgent', html: { __html: getLatestNotification() } },
-];
-
-const coursesList = [
-  { id: 1, name: 'ES6', credit: 60 },
-  { id: 2, name: 'Webpack', credit: 20 },
-  { id: 3, name: 'React', credit: 40 },
-];
-
 function App() {
   const [displayDrawer, setDisplayDrawer] = useState(true);
   const [user, setUser] = useState({ ...defaultUser });
-  const [notifications, setNotifications] = useState(notificationsList);
+  const [notifications, setNotifications] = useState([]);
+  const [courses, setCourses] = useState([]);
 
   const handleDisplayDrawer = useCallback(() => {
     setDisplayDrawer(true);
@@ -53,6 +43,48 @@ function App() {
     setNotifications((prev) => prev.filter((notification) => notification.id !== id));
   }, []);
 
+  useEffect(() => {
+    let ignore = false;
+
+    const fetchNotifications = async () => {
+      try {
+        const response = await axios.get('/notifications.json');
+        if (ignore) return;
+        const data = response.data.map((notification) =>
+          notification.html
+            ? { ...notification, html: { __html: getLatestNotification() } }
+            : notification
+        );
+        setNotifications(data);
+      } catch (error) {
+        if (!ignore) console.error('Error fetching notifications:', error);
+      }
+    };
+
+    fetchNotifications();
+    return () => {
+      ignore = true;
+    };
+  }, []);
+
+  useEffect(() => {
+    let ignore = false;
+
+    const fetchCourses = async () => {
+      try {
+        const response = await axios.get('/courses.json');
+        if (!ignore) setCourses(response.data);
+      } catch (error) {
+        if (!ignore) console.error('Error fetching courses:', error);
+      }
+    };
+
+    fetchCourses();
+    return () => {
+      ignore = true;
+    };
+  }, [user]);
+
   const contextValue = useMemo(() => ({ user, logOut }), [user, logOut]);
 
   return (
@@ -70,7 +102,7 @@ function App() {
         <Header />
         {user.isLoggedIn ? (
           <BodySectionWithMarginBottom title="Course list">
-            <CourseList courses={coursesList} />
+            <CourseList courses={courses} />
           </BodySectionWithMarginBottom>
         ) : (
           <BodySectionWithMarginBottom title="Log in to continue">
