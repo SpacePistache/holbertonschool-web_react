@@ -50,7 +50,8 @@ function App() {
       try {
         const response = await axios.get('/notifications.json');
         if (ignore) return;
-        const data = response.data.map((notification) =>
+        const list = Array.isArray(response.data) ? response.data : response.data.notifications;
+        const data = list.map((notification) =>
           notification.html
             ? { ...notification, html: { __html: getLatestNotification() } }
             : notification
@@ -73,7 +74,9 @@ function App() {
     const fetchCourses = async () => {
       try {
         const response = await axios.get('/courses.json');
-        if (!ignore) setCourses(response.data);
+        if (ignore) return;
+        const list = Array.isArray(response.data) ? response.data : response.data.courses;
+        setCourses(list);
       } catch (error) {
         if (!ignore) console.error('Error fetching courses:', error);
       }
