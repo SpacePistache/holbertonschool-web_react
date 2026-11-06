@@ -94,7 +94,7 @@ describe('App component', () => {
   test('clicking the close button hides the drawer', async () => {
     render(<App />);
     await act(async () => {
-      mockAxios.mockResponseFor({ url: '/notifications.json' }, { data: notificationsData });
+      mockAxios.mockResponseFor({ url: 'http://localhost:5173/notifications.json' }, { data: notificationsData });
     });
     
     expect(screen.getByText(/here is the list of notifications/i)).toBeInTheDocument();
@@ -133,7 +133,7 @@ describe('App component', () => {
     render(<App />);
 
     await act(async () => {
-      mockAxios.mockResponseFor({ url: '/notifications.json' }, { data: notificationsData });
+      mockAxios.mockResponseFor({ url: 'http://localhost:5173/notifications.json' }, { data: notificationsData });
     });
 
     fireEvent.click(screen.getByText(/your notifications/i));
@@ -149,7 +149,7 @@ describe('App component', () => {
     render(<App />);
 
     await act(async () => {
-      mockAxios.mockResponseFor({ url: '/notifications.json' }, { data: notificationsData });
+      mockAxios.mockResponseFor({ url: 'http://localhost:5173/notifications.json' }, { data: notificationsData });
     });
 
     expect(screen.getByText(/here is the list of notifications/i)).toBeInTheDocument();
@@ -188,10 +188,10 @@ describe('App component', () => {
 
     test('fetches notifications when the App first loads', async () => {
     render(<App />);
-    expect(mockAxios.get).toHaveBeenCalledWith('/notifications.json');
+    expect(mockAxios.get).toHaveBeenCalledWith('http://localhost:5173/notifications.json');
 
     await act(async () => {
-      mockAxios.mockResponseFor({ url: '/notifications.json' }, { data: notificationsData });
+      mockAxios.mockResponseFor({ url: 'http://localhost:5173/notifications.json' }, { data: notificationsData });
     });
 
     expect(screen.getByText('New course available')).toBeInTheDocument();
@@ -201,16 +201,16 @@ describe('App component', () => {
 
   test('fetches courses only once the user is logged in', async () => {
     render(<App />);
-    expect(mockAxios.get).not.toHaveBeenCalledWith('/courses.json');
+    expect(mockAxios.get).not.toHaveBeenCalledWith('http://localhost:5173/courses.json');
 
     fireEvent.change(screen.getByLabelText(/email/i), { target: { value: 'test@example.com' } });
     fireEvent.change(screen.getByLabelText(/password/i), { target: { value: 'password123' } });
     fireEvent.click(screen.getByRole('button', { name: /ok/i }));
 
-    expect(mockAxios.get).toHaveBeenCalledWith('/courses.json');
+    expect(mockAxios.get).toHaveBeenCalledWith('http://localhost:5173/courses.json');
 
     await act(async () => {
-      mockAxios.mockResponseFor({ url: '/courses.json' }, { data: coursesData });
+      mockAxios.mockResponseFor({ url: 'http://localhost:5173/courses.json' }, { data: coursesData });
     });
 
     expect(screen.getByText('ES6')).toBeInTheDocument();

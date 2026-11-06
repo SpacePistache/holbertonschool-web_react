@@ -69,25 +69,19 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (!user.isLoggedIn) return undefined;
-    let ignore = false;
-
+    if (!user.isLoggedIn) return;
 
     const fetchCourses = async () => {
       try {
         const response = await axios.get('http://localhost:5173/courses.json');
-        if (ignore) return;
         const list = Array.isArray(response.data) ? response.data : response.data.courses;
         setCourses(list);
       } catch (error) {
-        if (!ignore) console.error('Error fetching courses:', error);
+        console.error('Error fetching courses:', error);
       }
     };
 
     fetchCourses();
-    return () => {
-      ignore = true;
-    };
   }, [user]);
 
   const contextValue = useMemo(() => ({ user, logOut }), [user, logOut]);
