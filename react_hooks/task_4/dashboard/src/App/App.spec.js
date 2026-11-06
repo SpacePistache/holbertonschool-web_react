@@ -1,6 +1,23 @@
-import { render, screen, within, fireEvent } from '@testing-library/react';
+import { render, screen, within, fireEvent, act } from '@testing-library/react';
+import mockAxios from 'jest-mock-axios';
 import App from './App';
 
+
+const notificationsData = [
+  { id: 1, type: 'default', value: 'New course available' },
+  { id: 2, type: 'urgent', value: 'New resume available' },
+  { id: 3, type: 'urgent', html: { __html: '' } },
+];
+
+const coursesData = [
+  { id: 1, name: 'ES6', credit: 60 },
+  { id: 2, name: 'Webpack', credit: 20 },
+  { id: 3, name: 'React', credit: 40 },
+];
+
+afterEach(() => {
+  mockAxios.reset();
+});
 
 describe('App component', () => {
   test('renders the login paragraph', () => {
@@ -74,8 +91,12 @@ describe('App component', () => {
     expect(within(section).getByRole('button', { name: /ok/i })).toBeInTheDocument();
   });
 
-  test('clicking the close button hides the drawer', () => {
+  test('clicking the close button hides the drawer', async () => {
     render(<App />);
+    await act(async () => {
+      mockAxios.mockResponseFor({ url: '/notifications.json' }, { data: notificationsData });
+    });
+    
     expect(screen.getByText(/here is the list of notifications/i)).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole('button', { name: /close/i }));
@@ -107,9 +128,13 @@ describe('App component', () => {
     expect(container.querySelector('#logoutSection')).not.toBeInTheDocument();
   });
 
-  test('clicking a notification removes it and logs a message', () => {
+  test('clicking a notification removes it and logs a message', async () => {
     const logSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
     render(<App />);
+
+    await act(async () => {
+      mockAxios.mockResponseFor({ url: '/notifications.json' }, { data: notificationsData });
+    });
 
     fireEvent.click(screen.getByText(/your notifications/i));
     fireEvent.click(screen.getByText('New course available'));
@@ -120,8 +145,13 @@ describe('App component', () => {
     logSpy.mockRestore();
   });
 
-    test('handleHideDrawer and handleDisplayDrawer toggle the drawer', () => {
+    test('handleHideDrawer and handleDisplayDrawer toggle the drawer', async () => {
     render(<App />);
+
+    await act(async () => {
+      mockAxios.mockResponseFor({ url: '/notifications.json' }, { data: notificationsData });
+    });
+
     expect(screen.getByText(/here is the list of notifications/i)).toBeInTheDocument();
 
     fireEvent.click(screen.getByRole('button', { name: /close/i }));
@@ -154,6 +184,35 @@ describe('App component', () => {
     expect(container.querySelector('#logoutSection')).not.toBeInTheDocument();
     expect(screen.getByLabelText(/email/i)).toHaveValue('');
     expect(screen.getByLabelText(/password/i)).toHaveValue('');
+  });
+
+    test('fetches notifications when the App first loads', async () => {
+    render(<App />);
+    expect(mockAxios.get).toHaveBeenCalledWith('/notifications.json');
+
+    await act(async () => {
+      mockAxios.mockResponseFor({ url: '/notifications.json' }, { data: notificationsData });
+    });
+
+    expect(screen.getByText('New course available')).toBeInTheDocument();
+    expect(screen.getByText(/urgent requirement/i)).toBeInTheDocument();
+  });
+
+  test('fetches courses again when the user state changes', async () => {
+    render(<App />);
+
+    fireEvent.change(screen.getByLabelText(/email/i), { target: { value: 'test@example.com' } });
+    fireEvent.change(screen.getByLabelText(/password/i), { target: { value: 'password123' } });
+    fireEvent.click(screen.getByRole('button', { name: /ok/i }));
+
+    const coursesCalls = mockAxios.get.mock.calls.filter(([url]) => url === '/courses.json');
+    expect(coursesCalls).toHaveLength(2);
+
+    await act(async () => {
+      mockAxios.mockResponse({ data: coursesData }, mockAxios.lastReqGet());
+    });
+
+    expect(screen.getByText('ES6')).toBeInTheDocument();
   });
 
 });
