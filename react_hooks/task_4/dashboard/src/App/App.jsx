@@ -69,7 +69,9 @@ function App() {
   }, []);
 
   useEffect(() => {
+    if (!user.isLoggedIn) return undefined;
     let ignore = false;
+
 
     const fetchCourses = async () => {
       try {

@@ -198,18 +198,19 @@ describe('App component', () => {
     expect(screen.getByText(/urgent requirement/i)).toBeInTheDocument();
   });
 
-  test('fetches courses again when the user state changes', async () => {
+
+  test('fetches courses only once the user is logged in', async () => {
     render(<App />);
+    expect(mockAxios.get).not.toHaveBeenCalledWith('/courses.json');
 
     fireEvent.change(screen.getByLabelText(/email/i), { target: { value: 'test@example.com' } });
     fireEvent.change(screen.getByLabelText(/password/i), { target: { value: 'password123' } });
     fireEvent.click(screen.getByRole('button', { name: /ok/i }));
 
-    const coursesCalls = mockAxios.get.mock.calls.filter(([url]) => url === '/courses.json');
-    expect(coursesCalls).toHaveLength(2);
+    expect(mockAxios.get).toHaveBeenCalledWith('/courses.json');
 
     await act(async () => {
-      mockAxios.mockResponse({ data: coursesData }, mockAxios.lastReqGet());
+      mockAxios.mockResponseFor({ url: '/courses.json' }, { data: coursesData });
     });
 
     expect(screen.getByText('ES6')).toBeInTheDocument();
