@@ -136,7 +136,6 @@ describe('App component', () => {
       mockAxios.mockResponseFor({ url: 'http://localhost:5173/notifications.json' }, { data: notificationsData });
     });
 
-    fireEvent.click(screen.getByText(/your notifications/i));
     fireEvent.click(screen.getByText('New course available'));
 
     expect(screen.queryByText('New course available')).not.toBeInTheDocument();
