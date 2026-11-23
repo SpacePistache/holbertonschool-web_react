@@ -15,11 +15,11 @@ function App() {
   const { displayDrawer, user, notifications, courses } = state;
 
   const handleDisplayDrawer = useCallback(() => {
-    dispatch({ type: APP_ACTIONS.TOGGLE_DRAWER });
+    dispatch({ type: APP_ACTIONS.TOGGLE_DRAWER, payload: true });
   }, []);
 
   const handleHideDrawer = useCallback(() => {
-    dispatch({ type: APP_ACTIONS.TOGGLE_DRAWER });
+    dispatch({ type: APP_ACTIONS.TOGGLE_DRAWER, payload: false });
   }, []);
 
   const logIn = useCallback((email, password) => {
