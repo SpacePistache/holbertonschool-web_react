@@ -1,5 +1,6 @@
 import { getCurrentYear, getFooterCopy } from '../utils/utils';
 
+const loggedOutUser = { email: '', password: '', isLoggedIn: false };
 
 function Footer({ user = loggedOutUser }) {
 
